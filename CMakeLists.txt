@@ -420,6 +420,9 @@ elseif(MSVC)
   set_source_files_properties(ext/nanovg/src/nanovg.c PROPERTIES COMPILE_FLAGS "/wd4005 /wd4456 /wd4457")
 endif()
 
+# Make sure stb_image implementations are done inside nanovg
+set_source_files_properties(ext/nanovg/src/nanovg.c PROPERTIES COMPILE_DEFINITIONS NVG_STB_IMAGE_IMPLEMENTATION=1)
+
 # Build example application if desired
 if(NANOGUI_BUILD_EXAMPLE)
   add_executable(example1      src/example1.cpp)
