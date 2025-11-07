@@ -309,10 +309,12 @@ std::vector<std::string> file_dialog(const std::vector<std::pair<std::string, st
         cmd += "--multiple --separator=\"/\" ";
     if (save)
         cmd += "--save ";
-    /*cmd += "--file-filter=\"";
+#if defined(_WIN32) || defined(WIN32)
+    cmd += "--file-filter=\"";
     for (auto pair : filetypes)
         cmd += "\"*." + pair.first + "\" ";
-    cmd += "\"";*/
+    cmd += "\"";
+#endif
     FILE *output = popen(cmd.c_str(), "r");
     if (output == nullptr)
         throw std::runtime_error("popen() failed -- could not launch zenity!");
